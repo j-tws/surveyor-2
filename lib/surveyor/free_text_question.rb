@@ -1,5 +1,9 @@
 module Surveyor
   class FreeTextQuestion < Question
-    # your code goes here
+
+    def valid_answer? input
+      input.class == String 
+    end
+    
   end
 end
