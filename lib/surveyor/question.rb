@@ -1,8 +1,8 @@
 module Surveyor
   class Question
-    attr_reader :question
-    def initialize(question)
-      @question = question[:question]
+    attr_reader :title
+    def initialize(title)
+      @title = title[:title]
     end
   end
 end

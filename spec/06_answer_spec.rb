@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 RSpec.describe Surveyor::Answer do
-  question = {question: 'Is this test question?'}
+  question = {title: 'Is this test question?'}
   value = {value: 'yes'}
   subject {described_class.new(question, value)}
 
