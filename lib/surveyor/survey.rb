@@ -54,7 +54,7 @@ module Surveyor
         5 => 0
       }
 
-      get_answers_of_question(question).each do |answer|
+      self.get_answers_of_question(question).each do |answer|
         breakdown[answer.value] += 1
       end
 
