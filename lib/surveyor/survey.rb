@@ -27,11 +27,11 @@ module Surveyor
       !user.nil?
     end
 
-    def get_low_answers()
+    def get_low_answers(question)
       low_value_answers = 0
       @responses.each do |response|
         response.answers.each do |answer|
-          if answer.value < 3
+          if answer.value < 3 && answer.question == question[:title]
             low_value_answers += 1
           end
         end
@@ -39,11 +39,11 @@ module Surveyor
       low_value_answers
     end
 
-    def get_neutral_answers()
+    def get_neutral_answers(question)
       neutral_value_answers = 0
       @responses.each do |response|
         response.answers.each do |answer|
-          if answer.value == 3
+          if answer.value == 3 && answer.question == question[:title]
             neutral_value_answers += 1
           end
         end
@@ -51,11 +51,11 @@ module Surveyor
       neutral_value_answers
     end
 
-    def get_high_answers()
+    def get_high_answers(question)
       high_value_answers = 0
       @responses.each do |response|
         response.answers.each do |answer|
-          if answer.value > 3
+          if answer.value > 3 && answer.question == question[:title]
             high_value_answers += 1
           end
         end
