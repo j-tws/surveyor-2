@@ -28,39 +28,21 @@ module Surveyor
     end
 
     def get_low_answers(question)
-      low_value_answers = 0
-      @responses.each do |response|
-        response.answers.each do |answer|
-          if answer.value < 3 && answer.question == question[:title]
-            low_value_answers += 1
-          end
-        end
-      end
-      low_value_answers
+      get_answers_of_question(question)
+        .select {|answer| answer.value < 3}
+        .length
     end
 
     def get_neutral_answers(question)
-      neutral_value_answers = 0
-      @responses.each do |response|
-        response.answers.each do |answer|
-          if answer.value == 3 && answer.question == question[:title]
-            neutral_value_answers += 1
-          end
-        end
-      end
-      neutral_value_answers
+      get_answers_of_question(question)
+        .select {|answer| answer.value == 3}
+        .length
     end
 
     def get_high_answers(question)
-      high_value_answers = 0
-      @responses.each do |response|
-        response.answers.each do |answer|
-          if answer.value > 3 && answer.question == question[:title]
-            high_value_answers += 1
-          end
-        end
-      end
-      high_value_answers
+      get_answers_of_question(question)
+        .select {|answer| answer.value > 3}
+        .length
     end
 
     def answer_breakdown(question)
@@ -72,16 +54,26 @@ module Surveyor
         5 => 0
       }
 
+      get_answers_of_question(question).each do |answer|
+        breakdown[answer.value] += 1
+      end
+
+      breakdown
+    end
+
+    def get_answers_of_question(question)
+      answer_array = []
+
       @responses.each do |response|
         response.answers.each do |answer|
           if answer.question == question[:title]
-            breakdown[answer.value] += 1
+            answer_array << answer
           end
         end
       end
 
-      breakdown
-
+      answer_array
     end
+
   end
 end
