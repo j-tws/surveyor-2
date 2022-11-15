@@ -19,29 +19,29 @@ module Surveyor
     end
 
     def find_response(email)
-      @responses.find {|el| el.email == email}
+      @responses.find { |el| el.email == email }
     end
 
     def user_responded?(email)
-      user = self.find_response(email)
+      user = find_response(email)
       !user.nil?
     end
 
     def get_low_answers(question)
       get_answers_of_question(question)
-        .select {|answer| answer.value < 3}
+        .select { |answer| answer.value < 3 }
         .length
     end
 
     def get_neutral_answers(question)
       get_answers_of_question(question)
-        .select {|answer| answer.value == 3}
+        .select { |answer| answer.value == 3 }
         .length
     end
 
     def get_high_answers(question)
       get_answers_of_question(question)
-        .select {|answer| answer.value > 3}
+        .select { |answer| answer.value > 3 }
         .length
     end
 
@@ -51,12 +51,10 @@ module Surveyor
         2 => 0,
         3 => 0,
         4 => 0,
-        5 => 0
+        5 => 0,
       }
 
-      self.get_answers_of_question(question).each do |answer|
-        breakdown[answer.value] += 1
-      end
+      get_answers_of_question(question).each { |answer| breakdown[answer.value] += 1 }
 
       breakdown
     end
@@ -74,6 +72,5 @@ module Surveyor
 
       answer_array
     end
-
   end
 end

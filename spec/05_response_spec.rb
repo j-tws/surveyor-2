@@ -6,6 +6,4 @@ RSpec.describe Surveyor::Response do
   it 'should have an email' do
     expect(subject.email).to eq('test@survey.com')
   end
-
-
 end

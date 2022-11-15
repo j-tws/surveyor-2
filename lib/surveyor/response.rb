@@ -10,8 +10,5 @@ module Surveyor
     def add_answer(answer)
       @answers << answer
     end
-
-  
   end
 end
-

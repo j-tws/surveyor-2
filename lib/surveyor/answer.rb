@@ -1,5 +1,4 @@
 module Surveyor
-
   class Answer
     attr_reader :question, :value
 
@@ -7,8 +6,5 @@ module Surveyor
       @question = question[:title]
       @value = value[:value]
     end
-
   end
-
 end
-
