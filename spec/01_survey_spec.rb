@@ -43,54 +43,23 @@ RSpec.describe Surveyor::Survey do
 
     question = {title: 'test question?'}
     question2 = {title: 'second test question?'}
+    answer1 = [1, 1, 2, 3, 3, 4, 4, 4, 5, 5]
+    answer2 = [1, 2, 2, 2, 3, 3, 3, 4, 5, 5]
     
     before do
-  
-      response1 = Surveyor::Response.new(email: '1@test.com')
-      response2 = Surveyor::Response.new(email: '2@test.com')
-      response3 = Surveyor::Response.new(email: '3@test.com')
-      response4 = Surveyor::Response.new(email: '4@test.com')
-      response5 = Surveyor::Response.new(email: '5@test.com')
-      response6 = Surveyor::Response.new(email: '6@test.com')
-      response7 = Surveyor::Response.new(email: '7@test.com')
-      response8 = Surveyor::Response.new(email: '8@test.com')
-      response9 = Surveyor::Response.new(email: '9@test.com')
-      response10 = Surveyor::Response.new(email: '10@test.com')
 
-      subject.add_question( Surveyor::RatingQuestion.new(question) )
+      answer1.each_with_index do |value, i|
+        response = Surveyor::Response.new(email: "#{i}@test.com")
+        response.add_answer( Surveyor::Answer.new( question, {value: value} ))
+        subject.add_response(response)
+      end
 
-      response1.add_answer( Surveyor::Answer.new( question, {value: 1}) )
-      response2.add_answer( Surveyor::Answer.new( question, {value: 1}) )
-      response3.add_answer( Surveyor::Answer.new( question, {value: 2}) )
-      response4.add_answer( Surveyor::Answer.new( question, {value: 3}) )
-      response5.add_answer( Surveyor::Answer.new( question, {value: 3}) )
-      response6.add_answer( Surveyor::Answer.new( question, {value: 4}) )
-      response7.add_answer( Surveyor::Answer.new( question, {value: 4}) )
-      response8.add_answer( Surveyor::Answer.new( question, {value: 4}) )
-      response9.add_answer( Surveyor::Answer.new( question, {value: 5}) )
-      response10.add_answer( Surveyor::Answer.new( question, {value: 5}) )
-
-      response1.add_answer( Surveyor::Answer.new( question2, {value: 1}) )
-      response2.add_answer( Surveyor::Answer.new( question2, {value: 2}) )
-      response3.add_answer( Surveyor::Answer.new( question2, {value: 2}) )
-      response4.add_answer( Surveyor::Answer.new( question2, {value: 2}) )
-      response5.add_answer( Surveyor::Answer.new( question2, {value: 3}) )
-      response6.add_answer( Surveyor::Answer.new( question2, {value: 3}) )
-      response7.add_answer( Surveyor::Answer.new( question2, {value: 3}) )
-      response8.add_answer( Surveyor::Answer.new( question2, {value: 4}) )
-      response9.add_answer( Surveyor::Answer.new( question2, {value: 5}) )
-      response10.add_answer( Surveyor::Answer.new( question2, {value: 5}) )
-    
-      subject.add_response(response1)
-      subject.add_response(response2)
-      subject.add_response(response3)
-      subject.add_response(response4)
-      subject.add_response(response5)
-      subject.add_response(response6)
-      subject.add_response(response7)
-      subject.add_response(response8)
-      subject.add_response(response9)
-      subject.add_response(response10)
+      answer2.each_with_index do |value, i|
+        response = Surveyor::Response.new(email: "#{i}@test.com")
+        response.add_answer( Surveyor::Answer.new( question2, {value: value} ))
+        subject.add_response(response)
+      end
+      
     end
   
     it "can find the amount of all 'low' answers" do
