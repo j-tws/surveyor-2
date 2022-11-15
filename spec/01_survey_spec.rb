@@ -34,14 +34,15 @@ RSpec.describe Surveyor::Survey do
     end
   
     it "can check if a user have responded yet" do
-      expect(subject.user_responded?('test@test.com')).to eq(false)
       expect(subject.user_responded?('test@test.co')).to eq(true)
+      expect(subject.user_responded?('test@test.com')).to eq(false)
     end
   end
 
   context "survey can find low/neutral/high answers and answer breakdown" do
 
     question = {title: 'test question?'}
+    question2 = {title: 'second test question?'}
     
     before do
   
@@ -68,6 +69,17 @@ RSpec.describe Surveyor::Survey do
       response8.add_answer( Surveyor::Answer.new( question, {value: 4}) )
       response9.add_answer( Surveyor::Answer.new( question, {value: 5}) )
       response10.add_answer( Surveyor::Answer.new( question, {value: 5}) )
+
+      response1.add_answer( Surveyor::Answer.new( question2, {value: 1}) )
+      response2.add_answer( Surveyor::Answer.new( question2, {value: 2}) )
+      response3.add_answer( Surveyor::Answer.new( question2, {value: 2}) )
+      response4.add_answer( Surveyor::Answer.new( question2, {value: 2}) )
+      response5.add_answer( Surveyor::Answer.new( question2, {value: 3}) )
+      response6.add_answer( Surveyor::Answer.new( question2, {value: 3}) )
+      response7.add_answer( Surveyor::Answer.new( question2, {value: 3}) )
+      response8.add_answer( Surveyor::Answer.new( question2, {value: 4}) )
+      response9.add_answer( Surveyor::Answer.new( question2, {value: 5}) )
+      response10.add_answer( Surveyor::Answer.new( question2, {value: 5}) )
     
       subject.add_response(response1)
       subject.add_response(response2)
@@ -83,14 +95,17 @@ RSpec.describe Surveyor::Survey do
   
     it "can find the amount of all 'low' answers" do
       expect(subject.get_low_answers(question)).to eq(3)
+      expect(subject.get_low_answers(question2)).to eq(4)
     end
     
     it "can find the amount of all 'neutral' answers" do     
       expect(subject.get_neutral_answers(question)).to eq(2)
+      expect(subject.get_neutral_answers(question2)).to eq(3)
     end
 
     it "ccan find the amount of all 'high' answers" do
       expect(subject.get_high_answers(question)).to eq(5)
+      expect(subject.get_high_answers(question2)).to eq(3)
     end
 
     it "can give us a break down of the answers for a particular rating question" do
@@ -99,6 +114,14 @@ RSpec.describe Surveyor::Survey do
         2 => 1,
         3 => 2,
         4 => 3,
+        5 => 2
+      })
+
+      expect(subject.answer_breakdown(question2)).to eq({
+        1 => 1,
+        2 => 3,
+        3 => 3,
+        4 => 1,
         5 => 2
       })
     end #it
