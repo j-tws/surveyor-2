@@ -47,13 +47,13 @@ RSpec.describe Surveyor::Survey do
     before do
       answer1.each_with_index do |value, i|
         response = Surveyor::Response.new(email: "#{i}@test.com")
-        response.add_answer(Surveyor::Answer.new(question, value: value))
+        response.add_answer(Surveyor::Answer.new(question: question, value: value))
         subject.add_response(response)
       end
 
       answer2.each_with_index do |value, i|
         response = Surveyor::Response.new(email: "#{i}@test.com")
-        response.add_answer(Surveyor::Answer.new(question2, value: value))
+        response.add_answer(Surveyor::Answer.new(question: question2, value: value))
         subject.add_response(response)
       end
     end
